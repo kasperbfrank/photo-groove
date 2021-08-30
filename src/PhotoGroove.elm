@@ -1,4 +1,4 @@
-port module PhotoGroove exposing (Model, Msg(..), initialModel, main, photoDecoder, update)
+port module PhotoGroove exposing (Model, Msg(..), Photo, Status(..), initialModel, main, photoDecoder, update, urlPrefix, view)
 
 import Browser
 import Html exposing (..)
@@ -192,7 +192,7 @@ update msg model =
 
         GotPhotos (Ok photos) ->
             case photos of
-                first :: _ ->
+                _ :: _ ->
                     applyFilters
                         { model
                             | status =
@@ -295,7 +295,7 @@ init flags =
 
 
 subscriptions : Model -> Sub Msg
-subscriptions model =
+subscriptions _ =
     activityChanges GotActivity
 
 
