@@ -5,7 +5,7 @@ import Fuzz exposing (Fuzzer, int, string)
 import Html.Attributes as Attr
 import Json.Decode exposing (decodeValue)
 import Json.Encode as Encode
-import PhotoGroove exposing (..)
+import PhotoGallery exposing (..)
 import Test exposing (..)
 import Test.Html.Event as Event
 import Test.Html.Query as Query
@@ -27,7 +27,7 @@ decoderTest =
     testCase <|
         \url size ->
             jsonObject url size
-                |> decodeValue PhotoGroove.photoDecoder
+                |> decodeValue PhotoGallery.photoDecoder
                 |> Result.map .title
                 |> Expect.equal (Ok "(untitled)")
 
@@ -61,7 +61,7 @@ noPhotosNoThumbnail =
     test "No thumbnails render when there ar eno photos to render" <|
         \_ ->
             initialModel
-                |> PhotoGroove.view
+                |> PhotoGallery.view
                 |> Query.fromHtml
                 |> Query.findAll [ tag "img" ]
                 |> Query.count (Expect.equal 0)
